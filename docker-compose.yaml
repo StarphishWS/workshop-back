@@ -1,0 +1,60 @@
+version: '3.0'
+
+services: 
+    workshop-api:
+        image: node:alpine
+        container_name: workshop-api
+        working_dir: /app
+        volumes: 
+            - .:/app
+            - appnodemodules:/app/node_modules
+            - ./nodemon.json:/home/node/app/nodemon.json
+        ports: 
+            - '${SERVER_PORT}:${SERVER_PORT}'
+        restart: unless-stopped
+        command:  /bin/sh -c "yarn install && yarn run dev"
+        networks: 
+            - workshop
+    workshop_db:
+        image: mysql:latest
+        container_name: workshop_db
+        volumes:
+          - db_data:/var/lib/mysql
+        ports:
+            - '${DATABASE_PORT}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+            MYSQL_DATABASE: ${DATABASE_DATABASE}
+            MYSQL_USER: ${DATABASE_USER}
+            MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+        restart: unless-stopped
+        command: --character-set-server=utf8mb4 --innodb-buffer-pool-size=4G
+        networks:
+            - workshop
+    phpmyadmin:
+        image: phpmyadmin
+        restart: unless-stopped
+        links:
+            - db
+        ports:
+         - 5000:80
+        environment:
+            PMA_HOST: workshop_db
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
+            UPLOAD_LIMIT: 300M
+        networks:
+            - workshop
+            
+networks: 
+    workshop:
+
+volumes: 
+    workshop-api:
+    db_data:
+    appnodemodules:
+        external: true
+
+
+
+
