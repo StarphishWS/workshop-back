@@ -1,8 +1,9 @@
 import * as admin from 'firebase-admin';
+import * as firebaseconfig from "../firebase.json"
 import config from "./config";
 
 admin.initializeApp({
-    credential: admin.credential.cert('../firebase.json')
+    credential: admin.credential.cert(firebaseconfig) 
 })
 
 export default admin;

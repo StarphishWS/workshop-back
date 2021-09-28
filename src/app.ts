@@ -4,6 +4,7 @@ import * as cors from '@koa/cors';
 
 //routes
 import userRouter from './user/user.route';
+import authRouter from './auth/auth.route';
 
 const app:Koa = new Koa();
 
@@ -14,6 +15,7 @@ app.use(bodyParser());
 
 //routes
 app.use(userRouter.routes())
+app.use(authRouter.routes())
 
 app.on('error', console.error); 
 
