@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryColumn, TableForeignKey } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, TableForeignKey } from "typeorm";
+import { Employee } from "../../employee/entity/Employee";
 import { User } from "../../user/entity/User";
 
 @Entity()
@@ -22,5 +23,6 @@ export class Campaign {
     @ManyToOne(() => User, user => user.campaign)
     user: User;
 
-
+    @OneToMany(() => Employee, employee => employee.campaign)
+    employee: Employee;
 }

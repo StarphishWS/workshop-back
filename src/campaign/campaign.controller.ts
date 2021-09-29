@@ -1,12 +1,13 @@
 import { Context, Next } from "koa";
 import ErrorMsg from "../interface/ErrorMsg";
 
-import { findAllCampaign, findCampaignById } from "./campaign.service";
+import { findAllCampaign, findCampaign } from "./campaign.service";
 
 
 export const getAllCampaign = async (context: Context, next: Next) => {
     try {
-        const user = context.state.user; 
+        const user = context.state.user;
+        console.log("getAllCampaign: ", user)
         
         const campaigns = await findAllCampaign(user.id);
         context.response.status = 200;

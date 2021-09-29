@@ -1,10 +1,9 @@
-
 import * as Router from "koa-router"; 
 import { authAccess } from "../middleware/auth";
-import { getAllCampaign } from "./campaign.controller";
+import { getAllEmployee } from "./employee.controller";
 
 const router: Router = new Router(); 
 
-router.get('/campaigns', authAccess, getAllCampaign);
+router.get('/employees/:campaignId', authAccess, getAllEmployee);
 
 export default router;
