@@ -4,8 +4,11 @@ import { Campaign } from "./entity/Campaign";
 const campaignRepository = () => getRepository(Campaign);
 
 
-export const findAllCampaign = async () => {
-    return campaignRepository().find({ relations: [] });
+export const findAllCampaign = async (userId) => {
+    const campaigns = await campaignRepository().find({where: {
+        user: userId
+    }});
+    return campaigns;
 };
 
 export const createCampaign = async (id, data) => {
@@ -23,5 +26,5 @@ export const createCampaign = async (id, data) => {
 
 export const findCampaignById = async (id) => {
     const user = await campaignRepository().findOne(id);
-    return user; 
+    return user;
 }
