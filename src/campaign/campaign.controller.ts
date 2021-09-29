@@ -24,3 +24,33 @@ export const getAllCampaign = async (context: Context, next: Next) => {
         context.response.body = errorMsg
     }
 };
+
+export const getOneCampaign = async (context: Context, next: Next) => {
+    try {
+        const campaignid = context.params.id;
+        const user = context.state.user;
+        
+        const campaigns = await findCampaignById(campaignid, user.id);
+
+        if(!campaigns) {
+         throw 'no found campaigns'
+        }
+        else{
+            context.response.status = 200;
+            context.response.body = campaigns;
+        }
+
+
+
+        next()
+    } catch(error) {
+        console.log('error', error)
+        const errorMsg: ErrorMsg = {
+            status: 401, 
+            msg: "No campaign found"
+        }
+
+        context.response.status = 400; 
+        context.response.body = errorMsg
+    }
+};

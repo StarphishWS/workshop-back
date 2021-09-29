@@ -24,7 +24,7 @@ export const createCampaign = async (id, data) => {
     return await campaignRepository().save(newCampaign);
 }
 
-export const findCampaignById = async (id) => {
-    const user = await campaignRepository().findOne(id);
-    return user;
+export const findCampaignById = async (id,userid) => {
+    const campaign = await campaignRepository().findOne(id, { where: {user: userid }});
+    return campaign;
 }
