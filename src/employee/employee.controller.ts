@@ -7,12 +7,8 @@ import { findAllEmployee } from "./employee.service";
 
 export const getAllEmployee = async (context: Context, next: Next) => {
     try {
-        console.log("wesh");
         const campaign = await findCampaign(context.params.campaignId);
         const employees = await findAllEmployee(campaign.id);
-
-        console.log("campaign: ", campaign);
-        console.log("employees: ", employees);
         
         context.response.status = 200;
         context.response.body = employees;
