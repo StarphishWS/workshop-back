@@ -20,8 +20,6 @@ export const createCampaign = async (data, user) => {
         sent: false,
         date: Date(), 
         user: user
-
-
     })
     
     return await campaignRepository().save(newCampaign);
