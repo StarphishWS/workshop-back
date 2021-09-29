@@ -12,5 +12,5 @@
 ## Migration:
 1. Run `docker exec -it workshop-api /bin/sh` command
 2. Run `yarn run typeorm migration:generate -n "my-migration"` command
-3. Run `yarn run typeorm migration:run"` command
+3. Run `yarn run typeorm migration:run` command
 

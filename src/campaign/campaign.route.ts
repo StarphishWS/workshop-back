@@ -1,9 +1,9 @@
 
 import * as Router from "koa-router"; 
-import { getAllUser } from "./user.controller";
+import { getAllCampaign } from "./campaign.controller";
 
  const router: Router = new Router(); 
 
-router.get('/users', getAllUser);
+router.get('/campaigns', getAllCampaign);
 
 export default router;
