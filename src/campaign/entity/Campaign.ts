@@ -2,6 +2,10 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, TableForeignKey } 
 import { Employee } from "../../employee/entity/Employee";
 import { User } from "../../user/entity/User";
 
+export enum template {
+    GOOGLE = 'google'
+}
+
 @Entity()
 export class Campaign {
 
@@ -14,8 +18,12 @@ export class Campaign {
     @Column()
     date: Date; 
 
-    @Column()
-    template: string; 
+    @Column({
+        type: 'enum', 
+        enum: template, 
+        default: template.GOOGLE
+    })
+    template: template; 
 
     @Column()
     sent: boolean;
