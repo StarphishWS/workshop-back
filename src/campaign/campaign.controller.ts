@@ -1,5 +1,4 @@
 import { Context, Next } from "koa";
-import { CannotConnectAlreadyConnectedError } from "typeorm";
 import ErrorMsg from "../interface/ErrorMsg";
 
 import { findAllCampaign, findCampaignById, createCampaign } from "./campaign.service";
@@ -7,8 +6,7 @@ import { findAllCampaign, findCampaignById, createCampaign } from "./campaign.se
 
 export const getAllCampaign = async (context: Context, next: Next) => {
     try {
-        const user = context.state.user; 
-        
+        const user = context.state.user;
         const campaigns = await findAllCampaign(user.id);
         context.response.status = 200;
         context.response.body = campaigns;

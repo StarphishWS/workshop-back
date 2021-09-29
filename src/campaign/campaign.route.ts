@@ -5,7 +5,7 @@ import { getAllCampaign } from "./campaign.controller";
 import { getOneCampaign } from "./campaign.controller";
 import { newCampaign } from "./campaign.controller";
 
- const router: Router = new Router(); 
+const router: Router = new Router(); 
 
 router.get('/campaigns', authAccess, getAllCampaign);
 router.get('/campaign/:id', authAccess, getOneCampaign);

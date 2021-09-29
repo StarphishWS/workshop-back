@@ -13,6 +13,7 @@ export const authAccess = async (context: Context, next: Next) => {
         const { uid } = await auth.verifyIdToken(token);
         const user = await findUserById(uid);
         context.state.user = user;
+        console.log(user)
         await next();
 
     } catch(error) {
