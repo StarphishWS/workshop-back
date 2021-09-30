@@ -9,7 +9,7 @@ import { startCampaign } from "./campaign.controller";
 const router: Router = new Router(); 
 
 router.get('/campaigns', authAccess, getAllCampaign);
-router.get('/campaign/:id', authAccess, getOneCampaign);
+router.get('/campaign/:campaignId', authAccess, getOneCampaign);
 router.post('/campaign', authAccess, newCampaign);
 router.get('/sendcampaign/:id', authAccess, startCampaign);
 

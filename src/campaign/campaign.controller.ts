@@ -3,8 +3,10 @@ import { ContainerInterface } from "typeorm";
 import ErrorMsg from "../interface/ErrorMsg";
 import { sendMail } from "../sendgrid/sendgrid.service";
 
-import { findAllCampaign, findCampaignById, createCampaign, sendToEmployee } from "./campaign.service";
 
+import { findAllCampaign, findCampaignById, createCampaign, sendToEmployee } from "./campaign.service";
+import { findAllEmployee } from "../employee/employee.service";
+import { Employee, stepEmployee } from "../employee/entity/Employee";
 
 export const getAllCampaign = async (context: Context, next: Next) => {
     try {
@@ -28,18 +30,27 @@ export const getAllCampaign = async (context: Context, next: Next) => {
 
 export const getOneCampaign = async (context: Context, next: Next) => {
     try {
-        const campaignid = context.params.id;
+        const campaignid = context.params.campaignId;
         const user = context.state.user;
         
-        const campaigns = await findCampaignById(campaignid, user.id);
+        const campaign = await findCampaignById(campaignid, user.id);
+        const employees = await findAllEmployee(campaign.id);
 
-        if(!campaigns) {
-         throw 'no found campaigns'
-        }
-        else{
-            context.response.status = 200;
-            context.response.body = campaigns;
-        }
+        const mailsent = campaign.sent ? employees.length : 0;
+        let click = 0;
+        let form = 0;
+        employees.forEach(employee => {
+            if (employee.step === stepEmployee.CLICK) click++;
+            if (employee.step === stepEmployee.FORM) form++;
+        });
+
+        context.response.status = 200;
+        context.response.body = {
+            ...campaign,
+            "sent": mailsent,
+            "click": click+form,
+            "form": form
+        };
 
         next()
     } catch(error) {
