@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@koa/cors": "^3.1.0",
+    "@sendgrid/mail": "^7.4.7",
     "firebase-admin": "^9.11.1",
     "getenv": "^1.0.0",
     "koa": "^2.13.3",

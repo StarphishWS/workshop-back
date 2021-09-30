@@ -6,5 +6,6 @@ dotenv.config();
 export default {
   server: {
     port: env.int("PORT", 8000),
+    sendgridKey: env.string('SENDGRID_KEY')
   },
 };
