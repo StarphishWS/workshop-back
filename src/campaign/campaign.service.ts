@@ -20,15 +20,20 @@ export const findAllCampaign = async (userId) => {
 };
 
 export const createCampaign = async (data, user) => {
+
+    const employees = data.employees.map(employee => ({
+        ...employee, 
+        id: uuidv4()
+    }))
+
     const newCampaign = campaignRepository().create({ 
         id: uuidv4(), 
         title: data.title, 
         template: data.template, 
         sent: false,
         date: Date(), 
+        employee: employees, 
         user: user
-
-
     })
     
     return await campaignRepository().save(newCampaign);

@@ -31,6 +31,6 @@ export class Campaign {
     @ManyToOne(() => User, user => user.campaign)
     user: User;
 
-    @OneToMany(() => Employee, employee => employee.campaign)
-    employee: Employee;
+    @OneToMany(() => Employee, employee => employee.campaign, { cascade: true })
+    employee: Employee[];
 }
