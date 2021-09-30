@@ -9,3 +9,24 @@ export const findAllEmployee = async (campaignId) => {
     }});
     return employees;
 };
+
+export const findEmployeeById = async (employeeId) => {
+    const employees = await employeeRepository().find({where: {
+        id: employeeId
+    }});
+    return employees;
+};
+
+export const updateStepEmployee = async (employeeId, step) => {
+
+    let employee = await employeeRepository().findOne({where: {
+        id: employeeId
+    }});
+
+    employee = { 
+        ...employee,
+        step: step
+    };
+    
+    return await employeeRepository().save(employee);
+}
